@@ -1,0 +1,24 @@
+[effect.cyberrain]
+# Controls the angle of the rain; 0.0 is vertical and positive values slant right.
+slantAngle = 0
+
+# Duration of the effect in seconds. 0.0 or a negative value runs indefinitely.
+duration = 30.0
+
+# Minimum and maximum vertical speed for rain streams (terminal cells per second).
+minSpeed = 8.0
+maxSpeed = 25.0
+
+# Minimum and maximum length of individual streams (number of glyphs).
+minLength = 10
+maxLength = 35
+
+# Approximate fraction of terminal columns that spawn a stream.
+density = 0.7
+
+# UTF-8 text file in assets/chars/ providing the character set for the rain.
+characterSetFile = "numbers.txt"
+
+# RGBA colors (0xRRGGBBAA) for the leading glyph and the brightest tail glyph.
+leadCharColor = 0xFFFFFFAA
+tailColor = 0x00AA00FF
