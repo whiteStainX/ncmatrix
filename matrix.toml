@@ -1,3 +1,7 @@
+[scene]
+# Available options: "rain" for the classic cyber rain or "rain_and_converge" for the title reveal.
+animation = "rain_and_converge"
+
 [effect.cyberrain]
 # Controls the angle of the rain; 0.0 is vertical and positive values slant right.
 slantAngle = 0
@@ -20,5 +24,19 @@ density = 0.7
 characterSetFile = "numbers.txt"
 
 # RGBA colors (0xRRGGBBAA) for the leading glyph and the brightest tail glyph.
+leadCharColor = 0xFFFFFFAA
+tailColor = 0x00AA00FF
+
+[rain_and_converge]
+title = "THE MATRIX"
+convergence_duration = 5.0
+rain_duration = 0.0
+slantAngle = 0.0
+minSpeed = 8.0
+maxSpeed = 25.0
+minLength = 10
+maxLength = 35
+density = 0.7
+characterSetFile = "numbers.txt"
 leadCharColor = 0xFFFFFFAA
 tailColor = 0x00AA00FF
