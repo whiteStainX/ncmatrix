@@ -18,8 +18,8 @@ The goal of this phase is to build the abstract machinery for managing effects.
 - [x] Define `Context` struct for shared data.
 - [x] Evolve the initial `Renderer` into a full `Engine` that manages a list of effects.
 - [x] Update the `Engine`'s main loop to iterate and call `update()`/`render()` on all effects.
-- [ ] Add `isFinished()` to the base `Effect` interface.
-- [ ] Update the `Engine` to check `isFinished()` and remove completed effects from the active list.
+- [x] Add `isFinished()` to the base `Effect` interface.
+- [x] Update the `Engine` to check `isFinished()` and remove completed effects from the active list.
 
 ### Phase 3: The Cyberrain Effect
 

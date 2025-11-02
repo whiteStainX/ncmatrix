@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <random>
@@ -37,13 +38,19 @@ void Engine::run() {
     while (running_) {
         update_context_dimensions();
 
+        remove_finished_effects();
+
         for (const auto& effect : effects_) {
             effect->update(context_);
         }
 
+        remove_finished_effects();
+
         for (const auto& effect : effects_) {
             effect->render(context_);
         }
+
+        remove_finished_effects();
 
         notcurses_render(nc_);
         process_input();
@@ -74,4 +81,14 @@ void Engine::process_input() {
             break;
         }
     }
+}
+
+void Engine::remove_finished_effects() {
+    const auto erase_begin = std::remove_if(
+        effects_.begin(),
+        effects_.end(),
+        [](const std::unique_ptr<Effect>& effect) {
+            return effect != nullptr && effect->isFinished();
+        });
+    effects_.erase(erase_begin, effects_.end());
 }
