@@ -17,6 +17,7 @@ endif()
 set(MATRIX_SOURCES
   src/cli/ConfigLoader.cpp
   src/cli/main.cpp
+  src/effects/RainAndConvergeEffect.cpp
   src/effects/RainEffect.cpp
 )
 

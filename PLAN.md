@@ -36,9 +36,9 @@ With the effect system in place, we will create the first concrete visual effect
 
 This phase implements the title-forming capabilities.
 
-- [ ] Create `ConvergeToTitleEffect` responsible for animating characters into a final title position.
-- [ ] Create `TitleHoldEffect` for displaying a static title on screen.
-- [ ] Update the `Engine` to manage sequences of effects (e.g., running Cyberrain, then Converge, then Hold).
+- [x] Implement the integrated `RainAndConvergeEffect` that transitions streams into a title.
+- [x] Extend configuration loading to select between Cyberrain and the integrated title animation.
+- [x] Update the CLI bootstrap to instantiate the selected animation.
 
 ### Phase 5: Configuration & Polish
 

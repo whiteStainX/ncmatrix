@@ -1,5 +1,6 @@
 #include "cli/ConfigLoader.h"
 #include "engine/Engine.h"
+#include "effects/RainAndConvergeEffect.h"
 #include "effects/RainEffect.h"
 
 #include <cxxopts.hpp>
@@ -29,10 +30,14 @@ int main(int argc, char** argv) {
     }
 
     const std::filesystem::path config_path = result["config"].as<std::string>();
-    RainConfig config = load_rain_config_from_file(config_path);
+    SceneConfig scene_config = load_scene_config_from_file(config_path);
 
     Engine engine;
-    engine.add_effect(std::make_unique<RainEffect>(std::move(config)));
+    if (scene_config.animation == AnimationType::RainAndConverge) {
+        engine.add_effect(std::make_unique<RainAndConvergeEffect>(std::move(scene_config.rainAndConverge)));
+    } else {
+        engine.add_effect(std::make_unique<RainEffect>(std::move(scene_config.rain)));
+    }
     engine.run();
     return 0;
 }
