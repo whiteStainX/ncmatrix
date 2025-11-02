@@ -18,10 +18,14 @@ set(MATRIX_SOURCES
   src/cli/main.cpp
 )
 
-add_executable(ncmatrix ${MATRIX_SOURCES} ${ANIMATION_SOURCES})
+set(ENGINE_SOURCES
+  src/engine/Renderer.cpp
+)
+
+add_executable(ncmatrix ${MATRIX_SOURCES} ${ENGINE_SOURCES})
 
 # Add a custom target to track changes in why.toml
-add_custom_target(config_dependency ALL DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/frame.toml)
+add_custom_target(config_dependency ALL DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/matrix.toml)
 add_dependencies(ncmatrix config_dependency)
 
 # --- includes ---
