@@ -19,7 +19,7 @@ set(MATRIX_SOURCES
 )
 
 set(ENGINE_SOURCES
-  src/engine/Renderer.cpp
+  src/engine/Engine.cpp
 )
 
 add_executable(ncmatrix ${MATRIX_SOURCES} ${ENGINE_SOURCES})

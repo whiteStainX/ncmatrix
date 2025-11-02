@@ -1,8 +1,11 @@
-#include "engine/Renderer.h"
+#include "engine/Engine.h"
+#include "effects/DemoEffect.h"
+
+#include <memory>
 
 int main() {
-    Renderer renderer;
-    renderer.draw_text("cyberrain");
-    renderer.wait_for_quit();
+    Engine engine;
+    engine.add_effect(std::make_unique<DemoEffect>());
+    engine.run();
     return 0;
 }
