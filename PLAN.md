@@ -2,50 +2,50 @@
 
 This document outlines the phased development plan to build `ncmatrix`.
 
-### Phase 1: Core Engine & Infrastructure (Complete)
-
-The goal of this phase was to establish a solid foundation for the project.
+### Phase 1: Core Engine & Infrastructure
 
 - [x] Set up the project structure with CMake.
 - [x] Integrate `notcurses`, `cxxopts`, and `toml++` libraries.
-- [x] Create a basic `Renderer`/`Engine` class to manage the `notcurses` lifecycle.
+- [x] Create a basic `Engine` class to manage the `notcurses` lifecycle.
 - [x] Implement a main loop that can handle basic input (quit on 'q').
 - [x] Confirm a stable build and run process.
 
-### Phase 2: The Effect System (Complete)
+### Phase 2: The Effect System
 
 The goal of this phase is to build the abstract machinery for managing effects.
 
-- [x] Define `Effect` Interface: Create an abstract base class `Effect` with virtual methods like `update(Context&)` and `render()`.
-- [x] Define `Context` Struct: Create the `Context` struct that will be passed to effects, containing terminal dimensions and other shared data.
-- [x] Evolve `Engine`: Upgrade the `Renderer` into a full `Engine` class that manages a list of `Effect*` pointers.
-- [x] Update Main Loop: The engine's main loop iterates through the list of effects, calling `update()` and `render()` on each one every frame.
+- [x] Define `Effect` interface with `update()` and `render()`.
+- [x] Define `Context` struct for shared data.
+- [x] Evolve the initial `Renderer` into a full `Engine` that manages a list of effects.
+- [x] Update the `Engine`'s main loop to iterate and call `update()`/`render()` on all effects.
+- [ ] Add `isFinished()` to the base `Effect` interface.
+- [ ] Update the `Engine` to check `isFinished()` and remove completed effects from the active list.
 
-### Phase 3: The Cyber Rain Effect
+### Phase 3: The Cyberrain Effect
 
 With the effect system in place, we will create the first concrete visual effect.
 
-- [ ] Create `RainEffect`: Implement a new class `RainEffect` that inherits from `Effect`.
-- [ ] Implement Rain Logic: This effect will manage multiple columns of falling characters.
-  - Each column will have a "leader" character with a bright color.
-  - Trailing characters will have a dimmer, fading color.
-  - Columns will reset randomly to create a continuous, dynamic effect.
+- [ ] Create `RainEffect.h` and `RainEffect.cpp`.
+- [ ] Define the `RainStream` and `RainConfig` data structures inside `RainEffect.h`.
+- [ ] Implement the basic vertical rain logic in `update()` (positional changes) and `render()` (drawing).
+- [ ] Implement color gradients for the stream tails (e.g., fading from green to black).
+- [ ] Add a `duration` property to the effect's configuration and implement the `isFinished()` logic.
+- [ ] Add a `slantAngle` property to the configuration to enable slanted rain.
 
 ### Phase 4: Title Effects
 
 This phase implements the title-forming capabilities.
 
-- [ ] Create `ConvergeToTitleEffect`: This effect will be responsible for making characters appear to stop and form a title.
-  - It will need to know the target title and its position.
-  - It will animate characters into their final positions.
-- [ ] Create `TitleHoldEffect`: A simpler effect that just displays a static piece of text. This can be used to hold the title on screen after it has been formed.
-- [ ] Orchestration: The `Engine` will be updated to manage the sequence of these effects (e.g., run `RainEffect` and `ConvergeToTitleEffect` simultaneously, then switch to `TitleHoldEffect`).
+- [ ] Create `ConvergeToTitleEffect` responsible for animating characters into a final title position.
+- [ ] Create `TitleHoldEffect` for displaying a static title on screen.
+- [ ] Update the `Engine` to manage sequences of effects (e.g., running Cyberrain, then Converge, then Hold).
 
 ### Phase 5: Configuration & Polish
 
 This final phase will focus on making the application configurable and robust.
 
-- [ ] Load from TOML: Implement `toml++` logic to load settings like colors, rain speed, and title text from a configuration file.
-- [ ] Command-Line Flags: Use `cxxopts` to allow overriding file configurations with command-line arguments.
-- [ ] Handle Resizing: Add logic to the `Engine` to gracefully handle terminal window resizing.
-- [ ] Code Cleanup: Add documentation, comments, and refactor as needed to improve code quality.
+- [ ] Implement loading of character sets from user-specified text files via TOML config.
+- [ ] Implement loading of `RainConfig` and other effect settings from a TOML file.
+- [ ] Implement command-line argument parsing with `cxxopts` to override TOML settings.
+- [ ] Ensure the `Engine` gracefully handles terminal window resizing.
+- [ ] Final code cleanup, documentation, and performance review.
