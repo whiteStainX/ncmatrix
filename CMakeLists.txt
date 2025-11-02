@@ -15,7 +15,7 @@ endif()
 
 # --- sources ---
 set(MATRIX_SOURCES
-  src/main.cpp
+  src/cli/main.cpp
 )
 
 add_executable(ncmatrix ${MATRIX_SOURCES} ${ANIMATION_SOURCES})
