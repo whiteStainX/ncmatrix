@@ -19,6 +19,7 @@ Engine::Engine() {
     rng_ = std::mt19937(std::random_device{}());
     context_.attach(nc_, stdplane_, &rng_);
     update_context_dimensions();
+    last_frame_time_ = std::chrono::steady_clock::now();
 }
 
 Engine::~Engine() {
@@ -35,7 +36,12 @@ void Engine::add_effect(std::unique_ptr<Effect> effect) {
 
 void Engine::run() {
     running_ = true;
+    context_.deltaTime = 0.0f;
     while (running_) {
+        const auto now = std::chrono::steady_clock::now();
+        context_.deltaTime = std::chrono::duration<float>(now - last_frame_time_).count();
+        last_frame_time_ = now;
+
         update_context_dimensions();
 
         remove_finished_effects();

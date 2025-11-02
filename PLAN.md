@@ -25,12 +25,12 @@ The goal of this phase is to build the abstract machinery for managing effects.
 
 With the effect system in place, we will create the first concrete visual effect.
 
-- [ ] Create `RainEffect.h` and `RainEffect.cpp`.
-- [ ] Define the `RainStream` and `RainConfig` data structures inside `RainEffect.h`.
-- [ ] Implement the basic vertical rain logic in `update()` (positional changes) and `render()` (drawing).
-- [ ] Implement color gradients for the stream tails (e.g., fading from green to black).
-- [ ] Add a `duration` property to the effect's configuration and implement the `isFinished()` logic.
-- [ ] Add a `slantAngle` property to the configuration to enable slanted rain.
+- [x] Create `RainEffect.h` and `RainEffect.cpp`.
+- [x] Define the `RainStream` and `RainConfig` data structures inside `RainEffect.h`.
+- [x] Implement the basic vertical rain logic in `update()` (positional changes) and `render()` (drawing).
+- [x] Implement color gradients for the stream tails (e.g., fading from green to black).
+- [x] Add a `duration` property to the effect's configuration and implement the `isFinished()` logic.
+- [x] Add a `slantAngle` property to the configuration to enable slanted rain.
 
 ### Phase 4: Title Effects
 

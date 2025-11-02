@@ -10,6 +10,7 @@ struct Context {
     struct notcurses* nc{nullptr};
     struct ncplane* root_plane{nullptr};
     std::mt19937* rng{nullptr};
+    float deltaTime{0.0f};
 
     void attach(struct notcurses* nc_instance, struct ncplane* plane, std::mt19937* rng_engine) {
         nc = nc_instance;

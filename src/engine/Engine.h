@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <memory>
 #include <random>
 #include <vector>
@@ -28,4 +29,5 @@ private:
     std::vector<std::unique_ptr<Effect>> effects_{};
     std::mt19937 rng_{};
     bool running_{false};
+    std::chrono::steady_clock::time_point last_frame_time_{};
 };
