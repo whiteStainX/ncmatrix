@@ -20,6 +20,7 @@ public:
 private:
     void update_context_dimensions();
     void process_input();
+    void remove_finished_effects();
 
     struct notcurses* nc_{nullptr};
     struct ncplane* stdplane_{nullptr};

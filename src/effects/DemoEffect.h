@@ -23,4 +23,6 @@ public:
         ncplane_erase(context.root_plane);
         ncplane_putstr_yx(context.root_plane, y, x, text.c_str());
     }
+
+    bool isFinished() const override { return false; }
 };
