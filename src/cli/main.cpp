@@ -1,12 +1,38 @@
+#include "cli/ConfigLoader.h"
 #include "engine/Engine.h"
 #include "effects/RainEffect.h"
 
-#include <memory>
+#include <cxxopts.hpp>
 
-int main() {
+#include <filesystem>
+#include <iostream>
+#include <memory>
+#include <string>
+
+int main(int argc, char** argv) {
+    cxxopts::Options options("ncmatrix", "Digital rain effect renderer");
+    options.add_options()
+        ("c,config", "Path to configuration file", cxxopts::value<std::string>()->default_value("matrix.toml"))
+        ("h,help", "Print usage information");
+
+    cxxopts::ParseResult result;
+    try {
+        result = options.parse(argc, argv);
+    } catch (const cxxopts::exceptions::exception& ex) {
+        std::cerr << "Failed to parse command line: " << ex.what() << '\n';
+        std::cout << options.help() << '\n';
+        return 1;
+    }
+    if (result.count("help")) {
+        std::cout << options.help() << '\n';
+        return 0;
+    }
+
+    const std::filesystem::path config_path = result["config"].as<std::string>();
+    RainConfig config = load_rain_config_from_file(config_path);
+
     Engine engine;
-    RainConfig config;
-    engine.add_effect(std::make_unique<RainEffect>(config));
+    engine.add_effect(std::make_unique<RainEffect>(std::move(config)));
     engine.run();
     return 0;
 }

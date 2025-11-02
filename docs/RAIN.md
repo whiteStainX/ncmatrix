@@ -15,7 +15,7 @@ The Cyberrain effect emulates the iconic digital rain from The Matrix. It consis
 
 ## 3. Configuration Options
 
-The Cyberrain effect is configured via a `RainConfig` object, typically loaded from a TOML file. Below are the available parameters:
+The Cyberrain effect is configured via a `RainConfig` object, typically populated from the root-level `matrix.toml`. The effect looks for a section named `[effect.cyberrain]` and reads the following keys. If a key is omitted, the engine falls back to the `RainConfig` default noted below.
 
 -   `slantAngle` (float, default: `0.0`)
     -   The angle of the rain in degrees. `0.0` results in vertical rain. Positive values will slant the rain to the right, and negative values to the left.
@@ -41,7 +41,7 @@ The Cyberrain effect is configured via a `RainConfig` object, typically loaded f
 ## 4. Example TOML Configuration
 
 ```toml
-[rain_effect]
+[effect.cyberrain]
 slantAngle = 15.0
 duration = 30.0
 minSpeed = 8.0
@@ -50,6 +50,8 @@ minLength = 10
 maxLength = 35
 density = 0.7
 characterSetFile = "numbers.txt"
-leadCharColor = 0xFFFFFFAA # White with some transparency
-tailColor = 0x00AA00FF   # Darker green
+leadCharColor = 0xFFFFFFAA
+tailColor = 0x00AA00FF
 ```
+
+The comments embedded in `matrix.toml` mirror these descriptions to make it easy to tweak settings inline.
