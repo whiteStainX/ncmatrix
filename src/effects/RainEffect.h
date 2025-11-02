@@ -17,6 +17,7 @@ struct RainConfig {
     float maxSpeed{15.0f};
     int minLength{5};
     int maxLength{20};
+    float density{0.5f}; // New: Controls the number of streams relative to terminal width
 
     std::string characterSetFile{"katakana.txt"};
     uint32_t leadCharColor{0xFFFFFFFF};

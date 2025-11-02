@@ -102,7 +102,7 @@ void RainEffect::ensure_initialized(const Context& context) {
         return;
     }
 
-    const unsigned int desired_streams = std::max(1U, context.cols / 2U);
+    const unsigned int desired_streams = std::max(1U, static_cast<unsigned int>(context.cols * config_.density));
     if (streams_.size() != desired_streams) {
         streams_.resize(desired_streams);
         initialized_ = false;
