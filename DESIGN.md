@@ -38,7 +38,7 @@ This prevents effects from needing direct access to the `Engine` and keeps them 
 
 An `Effect` is a self-contained, modular plugin that implements a specific piece of visual functionality. Each effect will adhere to a common interface (e.g., an abstract base class).
 
-- **Lifecycle**: Effects have a defined lifecycle, with methods like `update(Context&)` and `render(Context&)` that are called by the `Engine`.
+- **Lifecycle**: Effects have a defined lifecycle, with methods like `update(Context&)`, `render()`, and `isFinished()` that are called by the `Engine`. The `isFinished()` method allows an effect to signal that it has completed its work, enabling the Engine to remove it and potentially start another.
 - **Isolation**: Each `Effect` is given its own `ncplane` to draw on. This is crucial, as it prevents effects from accidentally drawing over each other and simplifies rendering logic.
 
 Example effects include:
@@ -49,4 +49,4 @@ Example effects include:
 ### Configuration
 
 - **`cxxopts`**: Used for parsing command-line arguments for runtime configuration.
-- **`toml++`**: Used for loading more complex, persistent configuration from files (e.g., `config.toml`).
+- **`toml++`**: Used for loading more complex, persistent configuration from files (e.g., `config.toml`). This includes loading resources like character sets from text files in the `assets/chars/` directory.
