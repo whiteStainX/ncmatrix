@@ -1,11 +1,12 @@
 #include "engine/Engine.h"
-#include "effects/DemoEffect.h"
+#include "effects/RainEffect.h"
 
 #include <memory>
 
 int main() {
     Engine engine;
-    engine.add_effect(std::make_unique<DemoEffect>());
+    RainConfig config;
+    engine.add_effect(std::make_unique<RainEffect>(config));
     engine.run();
     return 0;
 }

@@ -16,6 +16,7 @@ endif()
 # --- sources ---
 set(MATRIX_SOURCES
   src/cli/main.cpp
+  src/effects/RainEffect.cpp
 )
 
 set(ENGINE_SOURCES
