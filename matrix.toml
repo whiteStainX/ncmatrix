@@ -30,6 +30,7 @@ tailColor = 0x00AA00FF
 [rain_and_converge]
 title = "THE MATRIX"
 convergence_duration = 5.0
+convergence_randomness = 0.5 # Higher values increase the variation in arrival times
 rain_duration = 0.0
 slantAngle = 0.0
 minSpeed = 8.0

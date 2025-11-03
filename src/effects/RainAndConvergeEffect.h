@@ -11,6 +11,7 @@ struct RainAndConvergeConfig {
     RainConfig rainConfig{};
     std::u32string title{};
     float convergenceDuration{5.0f};
+    float convergenceRandomness{0.0f};
     unsigned int titleRow{0};
 };
 

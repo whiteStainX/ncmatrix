@@ -137,6 +137,7 @@ SceneConfig load_scene_config_from_file(const std::filesystem::path& path) {
                     sceneConfig.rainAndConverge.title = utf8_to_u32(*title_value);
                 }
                 sceneConfig.rainAndConverge.convergenceDuration = get_float(*rac_table, "convergence_duration", sceneConfig.rainAndConverge.convergenceDuration);
+                sceneConfig.rainAndConverge.convergenceRandomness = get_float(*rac_table, "convergence_randomness", sceneConfig.rainAndConverge.convergenceRandomness);
                 const int row_hint = get_int(*rac_table, "title_row", static_cast<int>(sceneConfig.rainAndConverge.titleRow));
                 if (row_hint > 0) {
                     sceneConfig.rainAndConverge.titleRow = static_cast<unsigned int>(row_hint);
