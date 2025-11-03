@@ -281,9 +281,40 @@ void RainAndConvergeEffect::update_stream(ExtendedRainStream& stream, const Cont
         }
         break;
     }
-    case ExtendedRainStream::State::IN_PLACE:
-        stream.y = stream.targetY;
+    case ExtendedRainStream::State::IN_PLACE: {
+        stream.y += stream.speed * delta;
+        stream.x += stream.speed * x_velocity_per_unit_y_ * delta;
+
+        if (stream.length < stream.maxLength) {
+            stream.length = std::min(stream.maxLength, stream.length + 1);
+        }
+
+        if (!stream.characters.empty() && shimmer_dist(rng) < 0.1f) {
+            std::uniform_int_distribution<std::size_t> index_dist(0, stream.characters.size() - 1);
+            const std::size_t index = index_dist(rng);
+            stream.characters[index] = random_character(rng);
+        }
+
+        const int available_chars = std::min(stream.length, static_cast<int>(stream.characters.size()));
+        if (available_chars > 0) {
+            const float tail_y = stream.y - static_cast<float>(available_chars - 1);
+            if (tail_y >= stream.targetY) {
+                stream.inactive = true;
+                stream.allowRespawn = false;
+                break;
+            }
+        }
+
+        if ((stream.y - static_cast<float>(stream.length)) > static_cast<float>(context.rows)) {
+            if (!stream.isTitleStream && stream.allowRespawn) {
+                reset_stream(stream, context, rng);
+            } else {
+                stream.length = 0;
+                stream.inactive = true;
+            }
+        }
         break;
+    }
     }
 
     if (context.cols > 0) {
@@ -358,16 +389,12 @@ void RainAndConvergeEffect::render(const Context& context) {
     decode_rgba(config_.rainConfig.tailColor, tail_r, tail_g, tail_b);
 
     for (const auto& stream : streams_) {
-        if (stream.state == ExtendedRainStream::State::IN_PLACE) {
-            if (stream.titleChar == U' ') {
-                continue;
-            }
-
+        const bool stream_in_place = stream.state == ExtendedRainStream::State::IN_PLACE;
+        if (stream_in_place && stream.titleChar != U' ') {
             ncplane_set_fg_rgb8(context.root_plane, lead_r, lead_g, lead_b);
             ncplane_on_styles(context.root_plane, NCSTYLE_BOLD);
             const std::string glyph_utf8 = encode_utf8(stream.titleChar);
             ncplane_putegc_yx(context.root_plane, static_cast<int>(stream.targetY), static_cast<int>(stream.x), glyph_utf8.c_str(), nullptr);
-            continue;
         }
 
         if (stream.inactive && !stream.isTitleStream) {
@@ -380,6 +407,10 @@ void RainAndConvergeEffect::render(const Context& context) {
             const float horizontal_offset = static_cast<float>(i) * x_velocity_per_unit_y_;
             const float raw_screen_x = stream.x - horizontal_offset;
             int screen_x = static_cast<int>(std::round(raw_screen_x));
+
+            if (stream_in_place && screen_y >= static_cast<int>(stream.targetY)) {
+                continue;
+            }
 
             if (screen_y < 0 || screen_y >= static_cast<int>(context.rows)) {
                 continue;
