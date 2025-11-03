@@ -28,16 +28,16 @@ leadCharColor = 0xFFFFFFAA
 tailColor = 0x00AA00FF
 
 [rain_and_converge]
-title = "THE MATRIX"
+title = "T H E  O P E N I N G"
 convergence_duration = 5.0
-convergence_randomness = 0.5 # Higher values increase the variation in arrival times
+convergence_randomness = 0.6 # Higher values increase the variation in arrival times
 rain_duration = 0.0
 slantAngle = 0.0
-minSpeed = 8.0
-maxSpeed = 25.0
+minSpeed = 10.0
+maxSpeed = 27.0
 minLength = 10
-maxLength = 35
-density = 0.7
+maxLength = 30
+density = 0.2
 characterSetFile = "assets/chars/numbers.txt"
 leadCharColor = 0xFFFFFFAA
 tailColor = 0xFFFFFFAA # 0x00AA00FF for green
