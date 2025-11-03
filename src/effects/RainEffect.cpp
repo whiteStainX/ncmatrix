@@ -11,6 +11,8 @@
 
 #include <notcurses/notcurses.h>
 
+#include "utils/Utf8.h"
+
 namespace {
 constexpr float kDefaultFrameTime = 1.0f / 60.0f;
 
@@ -63,13 +65,15 @@ void RainEffect::ensure_character_set_loaded() {
         return;
     }
 
-    std::ifstream input(config_.characterSetFile);
+    std::ifstream input(config_.characterSetFile, std::ios::binary);
     if (input.is_open()) {
         std::string line;
         while (std::getline(input, line)) {
-            for (unsigned char ch : line) {
-                config_.characterSet.push_back(static_cast<char32_t>(ch));
+            if (!line.empty() && line.back() == '\r') {
+                line.pop_back();
             }
+            const auto decoded = utf8::decode(line);
+            config_.characterSet.insert(config_.characterSet.end(), decoded.begin(), decoded.end());
         }
     }
 
