@@ -43,6 +43,7 @@ slantAngle = 10.0
 
 # Convergence-specific settings
 convergence_duration = 5.0 # Time over which letters appear and lock
+convergence_randomness = 0.3 # Higher values increase the variation in arrival times
 ```
 
 ## 3. New Effect: `RainAndConvergeEffect`

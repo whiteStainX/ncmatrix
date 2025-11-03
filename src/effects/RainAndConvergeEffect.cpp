@@ -173,7 +173,12 @@ void RainAndConvergeEffect::assign_title_streams(const Context& context, std::mt
         if (config_.convergenceDuration > 0.0f) {
             const float required_speed = distance / config_.convergenceDuration;
             if (required_speed > 0.0f) {
-                stream.speed = required_speed;
+                const float randomness = std::clamp(config_.convergenceRandomness, 0.0f, 1.0f);
+                const float min_multiplier = std::max(0.1f, 1.0f - randomness);
+                const float max_multiplier = 1.0f + randomness;
+                std::uniform_real_distribution<float> multiplier_dist(min_multiplier, max_multiplier);
+                const float multiplier = multiplier_dist(rng);
+                stream.speed = required_speed * multiplier;
             }
         }
         targeted_streams_++;
